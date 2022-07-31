@@ -34,3 +34,14 @@ div.square.dead
 {
     background-color: white;
 }
+
+div.button_container
+{
+    display: grid;
+    place-items: center;
+}
+
+div.button_container input[type="range"]
+{
+    display: block; 
+}
