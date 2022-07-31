@@ -1,0 +1,36 @@
+html,body{height: 100%;}
+
+body
+{
+    display: grid;
+    place-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+main#container
+{
+    width: 400px;
+    height: 400px;
+    padding: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:stretch;
+}
+
+div.square
+{
+    height: 20px;
+    width: 20px;
+    outline: 1px solid black;
+}
+
+div.square.alive
+{
+    background: black;
+}
+
+div.square.dead
+{
+    background-color: white;
+}
