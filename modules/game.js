@@ -1,4 +1,4 @@
-import Cell from "./cell";
+import Cell from "./cell.js";
 
 class Game
 {
@@ -20,28 +20,62 @@ class Game
         this.addListeners();
         this.createCells();
     }
+
+    handleClick(e)
+    {
+        const { pageX , pageY } = e;
+
+        this.#cells.forEach(
+            e => {
+                const selected = e.filter(f=>f.isCell(pageX,pageY));
+                if( selected.length > 0 )
+                {
+                    const cell = selected.filter(f=>f.isCell(pageX,pageY));
+                    console.log(cell);
+                }
+            }
+        );
+    }
     
     addListeners()
     {
-        this.#canvas.onclick = this.handleClick;
+        this.#canvas.onclick = this.handleClick.bind(this);
     }
     
     createCells()
     {
-        const AVAILABLE_WIDTH = window.innerWidth - 10;
+        const AVAILABLE_WIDTH = window.innerWidth;
         const AVAILABLE_HEIGHT = window.innerHeight - 10;
         
-        for( let x = 0; x < AVAILABLE_WIDTH ; x += 10 )
+        for( let x = 0; x < AVAILABLE_WIDTH ; x+=10 )
         {
             this.#cells[x] = [];
-            for( let y = 0; y < AVAILABLE_HEIGHT ; y += 10 )
+            for( let y = 0; y < AVAILABLE_HEIGHT ; y+=10 )
             {
-                this.#cells[x][y] = new Cell();
+                this.#cells[x][y] = new Cell(x,y,this.#context);
+            }
+        }
+        console.log(this.#cells);
+    }
+    
+    build()
+    {
+        for(let x of this.#cells)
+        {
+            if( x == undefined ) continue;
+            for(let y of x)
+            {
+                if(y == undefined) continue;
+
+                y.buildCell();
             }
         }
     }
-    
-    build(){}
+
+    start()
+    {
+        this.build();
+    }
 }
 
 export default Game;
